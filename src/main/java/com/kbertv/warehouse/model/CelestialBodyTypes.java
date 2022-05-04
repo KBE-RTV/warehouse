@@ -8,7 +8,8 @@ public enum CelestialBodyTypes {
     asteroid("Asteroid"),
     moon("Moon"),
     dwarfPlanet("Dwarf Planet"),
-    planet("Planet");
+    planet("Planet"),
+    sun("Sun");
 
     private String type;
 

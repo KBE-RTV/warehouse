@@ -1,12 +1,15 @@
 package com.kbertv.warehouse.service;
 
-import com.kbertv.warehouse.model.Component;
+import com.kbertv.warehouse.model.CelestialBody;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 public interface IWarehouseService {
-    List<Component> getAllComponents();
+    List<CelestialBody> getAllComponents();
 
-    Optional<Component> getComponent(String id);
+    Optional<CelestialBody> getComponent(String id);
+
+    List<CelestialBody> importCSVToCelestialBodyRepo(String path) throws IOException;
 }
