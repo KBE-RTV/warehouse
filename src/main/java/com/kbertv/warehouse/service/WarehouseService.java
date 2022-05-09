@@ -35,13 +35,7 @@ public class WarehouseService implements IWarehouseService {
     @Override
     public List<CelestialBody> importCSVToCelestialBodyRepo(String path) throws IOException {
         List<CelestialBody> importedCelestialBodies = importCSVToPOJOs(path);
-        List<CelestialBody> existingCelestialBodyRepoEntries = retainExistingCelestialBodyRepoEntries(importedCelestialBodies);
-
-        importedCelestialBodies.removeIf(existingCelestialBodyRepoEntries::contains);
-        adjustAmountWithCelestialBodyRepoEntries(existingCelestialBodyRepoEntries);
-        importedCelestialBodies.addAll(existingCelestialBodyRepoEntries);
-
-        return warehouseRepository.saveAll(importedCelestialBodies);
+        return warehouseRepository.saveAll(adjustAmountWithCelestialBodyRepoEntries(importedCelestialBodies));
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -61,13 +55,7 @@ public class WarehouseService implements IWarehouseService {
                 .parse();
     }
 
-    private List<CelestialBody> retainExistingCelestialBodyRepoEntries(List<CelestialBody> initialList){
-        return initialList.stream()
-                .filter(celestialBody -> warehouseRepository.findById(celestialBody.getId()).isPresent())
-                .collect(Collectors.toList());
-    }
-
-    private List<CelestialBody> adjustAmountWithCelestialBodyRepoEntries(List <CelestialBody> initialList){
+    public List<CelestialBody> adjustAmountWithCelestialBodyRepoEntries(List <CelestialBody> initialList){
         for (CelestialBody celestialBody: initialList) {
             Optional<CelestialBody> potentialEntry = warehouseRepository.findById(celestialBody.getId());
             potentialEntry.ifPresent(body -> celestialBody.addAmount(body.getAmount()));
