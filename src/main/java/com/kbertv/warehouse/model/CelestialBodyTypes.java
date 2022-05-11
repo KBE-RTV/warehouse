@@ -11,9 +11,6 @@ public enum CelestialBodyTypes {
     planet("Planet"),
     sun("Sun");
 
-    private String type;
-
     CelestialBodyTypes(String type) {
-        this.type = type;
     }
 }

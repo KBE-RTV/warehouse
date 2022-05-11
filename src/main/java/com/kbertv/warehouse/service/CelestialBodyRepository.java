@@ -5,5 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface WarehouseRepository extends MongoRepository<CelestialBody, String> {
+public interface CelestialBodyRepository extends MongoRepository<CelestialBody, Integer> {
 }

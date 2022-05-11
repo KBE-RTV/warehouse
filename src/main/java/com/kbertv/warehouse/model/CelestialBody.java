@@ -1,15 +1,21 @@
 package com.kbertv.warehouse.model;
 
 import com.opencsv.bean.CsvBindByName;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Document(collection = "components")
 public class CelestialBody{
 
     @CsvBindByName
     @Id
-    private String id;
+    private int id;
     @CsvBindByName
     private String name;
     @CsvBindByName
@@ -35,7 +41,7 @@ public class CelestialBody{
     @CsvBindByName
     private float surfaceTemperature;
 
-    public CelestialBody(String id, String name, int amount, float price, CelestialBodyTypes type, int orbital, float radius, float volume, float mass, float gravity, float rotationVelocity, float orbitalVelocity, float surfaceTemperature) {
+    public CelestialBody(int id, String name, int amount, float price, CelestialBodyTypes type, int orbital, float radius, float volume, float mass, float gravity, float rotationVelocity, float orbitalVelocity, float surfaceTemperature) {
         this.id = id;
         this.name = name;
         this.amount = amount;
@@ -51,83 +57,9 @@ public class CelestialBody{
         this.surfaceTemperature = surfaceTemperature;
     }
 
-    // ONLY for CSV Import!!
-    public CelestialBody(){
-        id = "-1";
-        name = "dummy";
-        amount = -1;
-        price = -1.0f;
-        type = CelestialBodyTypes.sun;
-        radius = -1.0f;
-        volume = -1.0f;
-        mass = -1.0f;
-        gravity = -1.0f;
-        rotationVelocity = -1.0f;
-        orbitalVelocity = 1.0f;
-        surfaceTemperature = -1.0f;
-    }
-
-    public CelestialBodyTypes getType() {
-        return type;
-    }
-
-    public int getOrbital() {
-        return orbital;
-    }
-
-    public float getRadius() {
-        return radius;
-    }
-
-    public float getVolume() {
-        return volume;
-    }
-
-    public float getMass() {
-        return mass;
-    }
-
-    public float getGravity() {
-        return gravity;
-    }
-
-    public float getRotationVelocity() {
-        return rotationVelocity;
-    }
-
-    public float getOrbitalVelocity() {
-        return orbitalVelocity;
-    }
-
-    public float getSurfaceTemperature() {
-        return surfaceTemperature;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        if (amount>=0) {
-            this.amount = amount;
-        }
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     public void addAmount(int amount){
         if (amount>0){
             this.amount +=amount;
         }
-    }
-
-    public float getPrice() {
-        return price;
     }
 }

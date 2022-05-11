@@ -4,12 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.kbertv.warehouse.model.CelestialBody;
+import com.kbertv.warehouse.model.PlanetarySystem;
 import com.kbertv.warehouse.service.WarehouseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
@@ -35,14 +35,43 @@ public class WarehouseController {
         }
     }
 
+    @GetMapping(value = "/products", produces = "application/json")
+    public ResponseEntity<String> getAllProducts(){
+        String componentJsonFormat;
+        try {
+            componentJsonFormat = objectMapper.writeValueAsString(warehouseService.getAllProducts());
+            return new ResponseEntity<>(componentJsonFormat, HttpStatus.OK);
+        } catch (JsonProcessingException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping(value = "/components/{id}", produces = "application/json")
-    public ResponseEntity<String> getComponent(@PathVariable("id") String id){
+    public ResponseEntity<String> getComponent(@PathVariable("id") int id){
         String componentJsonFormat;
         Optional<CelestialBody> component = warehouseService.getComponent(id);
 
         if (component.isPresent()){
             try {
                 componentJsonFormat = objectMapper.writeValueAsString(component.get());
+                return new ResponseEntity<>(componentJsonFormat, HttpStatus.OK);
+            } catch (JsonProcessingException e) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @GetMapping(value = "/products/{id}", produces = "application/json")
+    public ResponseEntity<String> getProduct(@PathVariable("id") int id){
+        String componentJsonFormat;
+        Optional<PlanetarySystem> product = warehouseService.getProduct(id);
+
+        if (product.isPresent()){
+            try {
+                componentJsonFormat = objectMapper.writeValueAsString(product.get());
                 return new ResponseEntity<>(componentJsonFormat, HttpStatus.OK);
             } catch (JsonProcessingException e) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
