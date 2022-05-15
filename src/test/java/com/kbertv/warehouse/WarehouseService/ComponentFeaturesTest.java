@@ -1,9 +1,11 @@
 package com.kbertv.warehouse.WarehouseService;
 
+import com.kbertv.warehouse.config.TextToCelestialBody;
 import com.kbertv.warehouse.model.CelestialBody;
 import com.kbertv.warehouse.model.CelestialBodyTypes;
 import com.kbertv.warehouse.service.CelestialBodyRepository;
 import com.kbertv.warehouse.service.WarehouseService;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -17,8 +19,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 @ExtendWith(SpringExtension.class)
-public class WarehouseServiceTest {
+public class ComponentFeaturesTest {
 
     @Mock
     private CelestialBodyRepository celestialBodyRepository;
@@ -31,6 +35,7 @@ public class WarehouseServiceTest {
     private static final List<CelestialBody> emptyList = new LinkedList<>();
     private static final CelestialBody celestialBody1 = new CelestialBody(1,"Body1",1,1, CelestialBodyTypes.sun,1,1,1,1,1,1,1,1);
     private static final CelestialBody celestialBody2 = new CelestialBody(2,"Body2",1,1, CelestialBodyTypes.moon,1,1,1,1,1,1,1,1);
+    private TextToCelestialBody textToCelestialBody = new TextToCelestialBody();
 
     @BeforeAll
     static void setUp(){
@@ -65,5 +70,35 @@ public class WarehouseServiceTest {
         Mockito.when(celestialBodyRepository.findById(2)).thenReturn(Optional.empty());
 
         Assertions.assertEquals(emptyList,warehouseService.adjustAmountWithCelestialBodyRepoEntries(emptyList));
+    }
+
+    @Test
+    void stringToCelestialBody_Norm_Test(){
+        String validString = "1+Sun+1+1+sun+0+1+1+1+1+1+1+1";
+        CelestialBody referenceCelestialBody = new CelestialBody(1,"Sun",1,1,CelestialBodyTypes.sun,0,1,1,1,1,1,1,1);
+
+        CelestialBody celestialBody = null;
+        try {
+            celestialBody = (CelestialBody) textToCelestialBody.convertToRead(validString);
+        } catch (CsvDataTypeMismatchException e) {
+            fail();
+        }
+
+        Assertions.assertEquals(referenceCelestialBody.toString(),celestialBody.toString());
+
+    }
+
+    @Test
+    void stringToCelestialBody_Value_Missing_Test(){
+        String invalidString = "1+Sun+1+1+sun+0+1+1+1+1+1+1";
+
+        Assertions.assertThrows(CsvDataTypeMismatchException.class, () -> textToCelestialBody.convertToRead(invalidString));
+    }
+
+    @Test
+    void stringToCelestialBody_Wrong_Datatype_Test(){
+        String invalidString = "A+Sun+1+1+sun+0+1+1+1+1+1+1+1";
+
+        Assertions.assertThrows(CsvDataTypeMismatchException.class, () -> textToCelestialBody.convertToRead(invalidString));
     }
 }

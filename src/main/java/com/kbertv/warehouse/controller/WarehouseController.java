@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.kbertv.warehouse.model.CelestialBody;
 import com.kbertv.warehouse.model.PlanetarySystem;
-import com.kbertv.warehouse.service.WarehouseService;
+import com.kbertv.warehouse.service.IWarehouseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,13 +17,12 @@ import java.util.Optional;
 @RestController
 public class WarehouseController {
 
-    private final WarehouseService warehouseService;
+    private final IWarehouseService warehouseService;
     private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
-    public WarehouseController(WarehouseService warehouseService) {
+    public WarehouseController(IWarehouseService warehouseService) {
         this.warehouseService = warehouseService;
     }
-
     @GetMapping(value = "/components", produces = "application/json")
     public ResponseEntity<String> getAllComponents(){
         String componentJsonFormat;
