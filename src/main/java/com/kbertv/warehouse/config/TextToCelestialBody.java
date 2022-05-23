@@ -5,6 +5,8 @@ import com.kbertv.warehouse.model.CelestialBodyTypes;
 import com.opencsv.bean.AbstractCsvConverter;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 
+import java.util.UUID;
+
 public class TextToCelestialBody extends AbstractCsvConverter {
 
     @Override
@@ -15,7 +17,7 @@ public class TextToCelestialBody extends AbstractCsvConverter {
             throw new CsvDataTypeMismatchException();
         }
         try{
-        celestialBody.setId(Integer.parseInt(split[0]));
+        celestialBody.setId(UUID.fromString(split[0]));
         celestialBody.setName(split[1]);
         celestialBody.setAmount(Integer.parseInt(split[2]));
         celestialBody.setPrice(Float.parseFloat(split[3]));

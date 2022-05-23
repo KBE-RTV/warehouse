@@ -18,6 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -33,8 +34,8 @@ public class ComponentFeaturesTest {
     private static final List<CelestialBody> testDataNoOverlapCelestialBodies = new LinkedList<>();
     private static final List<CelestialBody> referenceDataAdjustedCelestialBodies = new LinkedList<>();
     private static final List<CelestialBody> emptyList = new LinkedList<>();
-    private static final CelestialBody celestialBody1 = new CelestialBody(1,"Body1",1,1, CelestialBodyTypes.sun,1,1,1,1,1,1,1,1);
-    private static final CelestialBody celestialBody2 = new CelestialBody(2,"Body2",1,1, CelestialBodyTypes.moon,1,1,1,1,1,1,1,1);
+    private static final CelestialBody celestialBody1 = new CelestialBody(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5"),"Body1",1,1, CelestialBodyTypes.sun,1,1,1,1,1,1,1,1);
+    private static final CelestialBody celestialBody2 = new CelestialBody(UUID.fromString("3e0a825c-b9cf-4b51-a1c1-1f9db6450fbf"),"Body2",1,1, CelestialBodyTypes.moon,1,1,1,1,1,1,1,1);
     private TextToCelestialBody textToCelestialBody = new TextToCelestialBody();
 
     @BeforeAll
@@ -50,24 +51,24 @@ public class ComponentFeaturesTest {
 
     @Test
      void adjustAmountWithCelestialBodyRepoEntries_Norm_Test(){
-        Mockito.when(celestialBodyRepository.findById(1)).thenReturn(Optional.of(celestialBody1));
-        Mockito.when(celestialBodyRepository.findById(2)).thenReturn(Optional.empty());
+        Mockito.when(celestialBodyRepository.findById(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5"))).thenReturn(Optional.of(celestialBody1));
+        Mockito.when(celestialBodyRepository.findById(UUID.fromString("3e0a825c-b9cf-4b51-a1c1-1f9db6450fbf"))).thenReturn(Optional.empty());
 
         Assertions.assertEquals(referenceDataAdjustedCelestialBodies,warehouseService.adjustAmountWithCelestialBodyRepoEntries(testDataOverlapCelestialBodies));
     }
 
     @Test
     void adjustAmountWithCelestialBodyRepoEntries_NoOverlap_Test(){
-        Mockito.when(celestialBodyRepository.findById(1)).thenReturn(Optional.of(celestialBody1));
-        Mockito.when(celestialBodyRepository.findById(2)).thenReturn(Optional.empty());
+        Mockito.when(celestialBodyRepository.findById(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5"))).thenReturn(Optional.of(celestialBody1));
+        Mockito.when(celestialBodyRepository.findById(UUID.fromString("3e0a825c-b9cf-4b51-a1c1-1f9db6450fbf"))).thenReturn(Optional.empty());
 
         Assertions.assertEquals(testDataNoOverlapCelestialBodies,warehouseService.adjustAmountWithCelestialBodyRepoEntries(testDataNoOverlapCelestialBodies));
     }
 
     @Test
     void adjustAmountWithCelestialBodyRepoEntries_Empty_Test(){
-        Mockito.when(celestialBodyRepository.findById(1)).thenReturn(Optional.of(celestialBody1));
-        Mockito.when(celestialBodyRepository.findById(2)).thenReturn(Optional.empty());
+        Mockito.when(celestialBodyRepository.findById(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5"))).thenReturn(Optional.of(celestialBody1));
+        Mockito.when(celestialBodyRepository.findById(UUID.fromString("3e0a825c-b9cf-4b51-a1c1-1f9db6450fbf"))).thenReturn(Optional.empty());
 
         Assertions.assertEquals(emptyList,warehouseService.adjustAmountWithCelestialBodyRepoEntries(emptyList));
     }
@@ -75,7 +76,7 @@ public class ComponentFeaturesTest {
     @Test
     void stringToCelestialBody_Norm_Test(){
         String validString = "1+Sun+1+1+sun+0+1+1+1+1+1+1+1";
-        CelestialBody referenceCelestialBody = new CelestialBody(1,"Sun",1,1,CelestialBodyTypes.sun,0,1,1,1,1,1,1,1);
+        CelestialBody referenceCelestialBody = new CelestialBody(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5"),"Sun",1,1,CelestialBodyTypes.sun,0,1,1,1,1,1,1,1);
 
         CelestialBody celestialBody = null;
         try {

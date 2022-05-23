@@ -10,9 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 public class WarehouseController {
@@ -36,19 +38,19 @@ public class WarehouseController {
 
     @GetMapping(value = "/products", produces = "application/json")
     public ResponseEntity<String> getAllProducts(){
-        String componentJsonFormat;
+        String productJsonFormat;
         try {
-            componentJsonFormat = objectMapper.writeValueAsString(warehouseService.getAllProducts());
-            return new ResponseEntity<>(componentJsonFormat, HttpStatus.OK);
+            productJsonFormat = objectMapper.writeValueAsString(warehouseService.getAllProducts());
+            return new ResponseEntity<>(productJsonFormat, HttpStatus.OK);
         } catch (JsonProcessingException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping(value = "/components/{id}", produces = "application/json")
-    public ResponseEntity<String> getComponent(@PathVariable("id") int id){
+    public ResponseEntity<String> getComponent(@PathVariable("id") String id){
         String componentJsonFormat;
-        Optional<CelestialBody> component = warehouseService.getComponent(id);
+        Optional<CelestialBody> component = warehouseService.getComponent(UUID.fromString(id));
 
         if (component.isPresent()){
             try {
@@ -64,14 +66,14 @@ public class WarehouseController {
     }
 
     @GetMapping(value = "/products/{id}", produces = "application/json")
-    public ResponseEntity<String> getProduct(@PathVariable("id") int id){
-        String componentJsonFormat;
-        Optional<PlanetarySystem> product = warehouseService.getProduct(id);
+    public ResponseEntity<String> getProduct(@PathVariable("id") String id){
+        String productJsonFormat;
+        Optional<PlanetarySystem> product = warehouseService.getProduct(UUID.fromString(id));
 
         if (product.isPresent()){
             try {
-                componentJsonFormat = objectMapper.writeValueAsString(product.get());
-                return new ResponseEntity<>(componentJsonFormat, HttpStatus.OK);
+                productJsonFormat = objectMapper.writeValueAsString(product.get());
+                return new ResponseEntity<>(productJsonFormat, HttpStatus.OK);
             } catch (JsonProcessingException e) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
