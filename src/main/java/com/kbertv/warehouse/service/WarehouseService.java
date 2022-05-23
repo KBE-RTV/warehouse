@@ -57,6 +57,11 @@ public class WarehouseService implements IWarehouseService {
         return planetarySystemRepository.saveAll(importedPlanetarySystems);
     }
 
+    @Override
+    public PlanetarySystem saveProduct(PlanetarySystem planetarySystem) {
+        return planetarySystemRepository.save(planetarySystem);
+    }
+
     @EventListener(ApplicationReadyEvent.class)
     public void importCSVAtStartUp() {
         try {
