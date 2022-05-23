@@ -24,38 +24,19 @@ public class WarehouseController {
     }
     @GetMapping(value = "/components", produces = "application/json")
     public ResponseEntity<String> getAllComponents(){
-        String componentJsonFormat;
-        try {
-            componentJsonFormat = objectMapper.writeValueAsString(warehouseService.getAllComponents());
-            return new ResponseEntity<>(componentJsonFormat, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return createResponseEntity(warehouseService.getAllComponents());
     }
 
     @GetMapping(value = "/products", produces = "application/json")
     public ResponseEntity<String> getAllProducts(){
-        String productJsonFormat;
-        try {
-            productJsonFormat = objectMapper.writeValueAsString(warehouseService.getAllProducts());
-            return new ResponseEntity<>(productJsonFormat, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return createResponseEntity(warehouseService.getAllProducts());
     }
 
     @GetMapping(value = "/components/{id}", produces = "application/json")
     public ResponseEntity<String> getComponent(@PathVariable("id") String id){
-        String componentJsonFormat;
         Optional<CelestialBody> component = warehouseService.getComponent(UUID.fromString(id));
-
-        if (component.isPresent()){
-            try {
-                componentJsonFormat = objectMapper.writeValueAsString(component.get());
-                return new ResponseEntity<>(componentJsonFormat, HttpStatus.OK);
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+        if(component.isPresent()){
+            return createResponseEntity(component);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -64,20 +45,12 @@ public class WarehouseController {
 
     @GetMapping(value = "/products/{id}", produces = "application/json")
     public ResponseEntity<String> getProduct(@PathVariable("id") String id){
-        String productJsonFormat;
         Optional<PlanetarySystem> product = warehouseService.getProduct(UUID.fromString(id));
-
-        if (product.isPresent()){
-            try {
-                productJsonFormat = objectMapper.writeValueAsString(product.get());
-                return new ResponseEntity<>(productJsonFormat, HttpStatus.OK);
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+        if(product.isPresent()){
+            return createResponseEntity(product);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @PostMapping(value = "/products/{id}", produces = "application/json")
@@ -85,14 +58,18 @@ public class WarehouseController {
         String productJsonFormat;
         if (planetarySystem.getId().toString().equals(id)) {
             PlanetarySystem product = warehouseService.saveProduct(planetarySystem);
-            try {
-                productJsonFormat = objectMapper.writeValueAsString(product);
-                return new ResponseEntity<>(productJsonFormat, HttpStatus.OK);
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            return createResponseEntity(product);
         }else{
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    private ResponseEntity<String> createResponseEntity(Object object){
+        try {
+            String productJsonFormat = objectMapper.writeValueAsString(object);
+            return new ResponseEntity<>(productJsonFormat, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
