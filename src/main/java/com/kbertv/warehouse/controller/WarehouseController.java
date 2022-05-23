@@ -1,6 +1,5 @@
 package com.kbertv.warehouse.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.kbertv.warehouse.model.CelestialBody;
@@ -55,7 +54,6 @@ public class WarehouseController {
 
     @PostMapping(value = "/products/{id}", produces = "application/json")
     public ResponseEntity<String> saveProduct(@RequestBody PlanetarySystem planetarySystem, @PathVariable("id") String id){
-        String productJsonFormat;
         if (planetarySystem.getId().toString().equals(id)) {
             PlanetarySystem product = warehouseService.saveProduct(planetarySystem);
             return createResponseEntity(product);
