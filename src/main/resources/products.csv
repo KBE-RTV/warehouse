@@ -1,2 +1,2 @@
-id,name,celestialBodies
-344e7276-410a-4a18-b830-910c29e31744,Dummy,04e23e51-3da2-4583-bcaf-bfb9c46cbe93|ff1b0f4d-027d-4607-82cb-184701148ecb
+id,name,owner,celestialBodies
+344e7276-410a-4a18-b830-910c29e31744,Dummy,Bob,04e23e51-3da2-4583-bcaf-bfb9c46cbe93|ff1b0f4d-027d-4607-82cb-184701148ecb

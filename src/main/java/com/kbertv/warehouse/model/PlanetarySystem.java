@@ -26,6 +26,9 @@ public class PlanetarySystem {
     @CsvBindByName
     private String name;
 
+    @CsvBindByName
+    private String owner;
+
     @CsvBindAndSplitByName(elementType= UUID.class, splitOn = "\\|")
     private ArrayList<UUID> celestialBodies = new ArrayList<>();
 }
