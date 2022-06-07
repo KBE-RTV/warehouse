@@ -1,23 +1,23 @@
 package com.kbertv.warehouse.model;
 
 import com.opencsv.bean.CsvBindByName;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.UUID;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "components")
 public class CelestialBody{
 
     @CsvBindByName
     @Id
-    private int id;
+    private UUID id;
     @CsvBindByName
     private String name;
     @CsvBindByName
@@ -42,22 +42,6 @@ public class CelestialBody{
     private float orbitalVelocity;
     @CsvBindByName
     private float surfaceTemperature;
-
-    public CelestialBody(int id, String name, int amount, float price, CelestialBodyTypes type, int orbital, float radius, float volume, float mass, float gravity, float rotationVelocity, float orbitalVelocity, float surfaceTemperature) {
-        this.id = id;
-        this.name = name;
-        this.amount = amount;
-        this.price = price;
-        this.type = type;
-        this.orbital = orbital;
-        this.radius = radius;
-        this.volume = volume;
-        this.mass = mass;
-        this.gravity = gravity;
-        this.rotationVelocity = rotationVelocity;
-        this.orbitalVelocity = orbitalVelocity;
-        this.surfaceTemperature = surfaceTemperature;
-    }
 
     public void addAmount(int amount){
         if (amount>0){

@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class WarehouseService implements IWarehouseService {
@@ -30,7 +31,7 @@ public class WarehouseService implements IWarehouseService {
     }
 
     @Override
-    public Optional<CelestialBody> getComponent(int id) {
+    public Optional<CelestialBody> getComponent(UUID id) {
         return celestialBodyRepository.findById(id);
     }
 
@@ -46,7 +47,7 @@ public class WarehouseService implements IWarehouseService {
     }
 
     @Override
-    public Optional<PlanetarySystem> getProduct(int id) {
+    public Optional<PlanetarySystem> getProduct(UUID id) {
         return planetarySystemRepository.findById(id);
     }
 
@@ -54,6 +55,11 @@ public class WarehouseService implements IWarehouseService {
     public List<PlanetarySystem> importCSVToPlanetarySystemRepo(String path) throws IOException {
         List <PlanetarySystem> importedPlanetarySystems = importCSVToPlanetarySystems(path);
         return planetarySystemRepository.saveAll(importedPlanetarySystems);
+    }
+
+    @Override
+    public PlanetarySystem saveProduct(PlanetarySystem planetarySystem) {
+        return planetarySystemRepository.save(planetarySystem);
     }
 
     @EventListener(ApplicationReadyEvent.class)
