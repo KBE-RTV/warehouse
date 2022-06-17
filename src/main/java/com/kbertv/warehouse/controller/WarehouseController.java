@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -52,14 +53,10 @@ public class WarehouseController {
         }
     }
 
-    @PostMapping(value = "/products/{id}", produces = "application/json")
-    public ResponseEntity<String> saveProduct(@RequestBody PlanetarySystem planetarySystem, @PathVariable("id") String id){
-        if (planetarySystem.getId().toString().equals(id)) {
-            PlanetarySystem product = warehouseService.saveProduct(planetarySystem);
-            return createResponseEntity(product);
-        }else{
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    @PostMapping(value = "/products", produces = "application/json")
+    public ResponseEntity<String> saveProduct(@RequestBody ArrayList<PlanetarySystem> planetarySystems){
+        System.out.println(planetarySystems.get(0));
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     private ResponseEntity<String> createResponseEntity(Object object){
