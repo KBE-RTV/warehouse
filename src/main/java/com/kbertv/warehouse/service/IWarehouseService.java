@@ -4,6 +4,7 @@ import com.kbertv.warehouse.model.CelestialBody;
 import com.kbertv.warehouse.model.PlanetarySystem;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,5 +22,5 @@ public interface IWarehouseService {
 
     List<PlanetarySystem> importCSVToPlanetarySystemRepo(String path) throws IOException;
 
-    PlanetarySystem saveProduct(PlanetarySystem planetarySystem);
+    ArrayList<PlanetarySystem> saveProducts(ArrayList<PlanetarySystem> planetarySystem);
 }

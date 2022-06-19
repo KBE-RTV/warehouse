@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -58,8 +59,8 @@ public class WarehouseService implements IWarehouseService {
     }
 
     @Override
-    public PlanetarySystem saveProduct(PlanetarySystem planetarySystem) {
-        return planetarySystemRepository.save(planetarySystem);
+    public ArrayList<PlanetarySystem> saveProducts(ArrayList<PlanetarySystem> planetarySystems) {
+        return (ArrayList<PlanetarySystem>) planetarySystemRepository.saveAll(planetarySystems);
     }
 
     @EventListener(ApplicationReadyEvent.class)
