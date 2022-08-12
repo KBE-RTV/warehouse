@@ -1,7 +1,6 @@
 package com.kbertv.warehouse.WarehouseService;
 
 import com.kbertv.warehouse.model.CelestialBody;
-import com.kbertv.warehouse.model.CelestialBodyTypes;
 import com.kbertv.warehouse.service.CelestialBodyRepository;
 import com.kbertv.warehouse.service.WarehouseService;
 import org.junit.jupiter.api.Assertions;
@@ -30,8 +29,8 @@ public class ComponentFeaturesTest {
     private static final List<CelestialBody> testDataNoOverlapCelestialBodies = new LinkedList<>();
     private static final List<CelestialBody> referenceDataAdjustedCelestialBodies = new LinkedList<>();
     private static final List<CelestialBody> emptyList = new LinkedList<>();
-    private static final CelestialBody celestialBody1 = new CelestialBody(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5"),"Body1",1,1, CelestialBodyTypes.sun,1,1,1,1,1,1,1);
-    private static final CelestialBody celestialBody2 = new CelestialBody(UUID.fromString("3e0a825c-b9cf-4b51-a1c1-1f9db6450fbf"),"Body2",1,1, CelestialBodyTypes.planet,1,1,1,1,1,1,1);
+    private static final CelestialBody celestialBody1 = new CelestialBody(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5"),"Body1",1,1, "sun",1,1,1,1,1,1,1);
+    private static final CelestialBody celestialBody2 = new CelestialBody(UUID.fromString("3e0a825c-b9cf-4b51-a1c1-1f9db6450fbf"),"Body2",1,1, "planet",1,1,1,1,1,1,1);
 
     @BeforeAll
     static void setUp(){
