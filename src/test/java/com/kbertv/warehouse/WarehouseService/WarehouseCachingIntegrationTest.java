@@ -1,6 +1,6 @@
 package com.kbertv.warehouse.WarehouseService;
 
-import com.kbertv.warehouse.config.CacheConfiguration;
+import com.kbertv.warehouse.config.CacheConfig;
 import com.kbertv.warehouse.model.CelestialBody;
 import com.kbertv.warehouse.model.CelestialBodyTypes;
 import com.kbertv.warehouse.service.CelestialBodyRepository;
@@ -30,7 +30,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@Import({ CacheConfiguration.class, WarehouseService.class})
+@Import({ CacheConfig.class, WarehouseService.class})
 @ExtendWith(SpringExtension.class)
 @EnableCaching
 @ImportAutoConfiguration(classes = {
