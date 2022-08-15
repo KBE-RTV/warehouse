@@ -25,7 +25,7 @@ public class CelestialBody{
     @CsvBindByName
     private float price;
     @CsvBindByName
-    private CelestialBodyTypes type;
+    private String type;
     @CsvBindByName
     private float radius;
     @CsvBindByName
