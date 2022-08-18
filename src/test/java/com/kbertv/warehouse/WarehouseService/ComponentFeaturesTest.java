@@ -32,8 +32,8 @@ public class ComponentFeaturesTest {
 
     private static final UUID UUID_BODY_A =UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5");
     private static final UUID UUID_BODY_B =UUID.fromString("3e0a825c-b9cf-4b51-a1c1-1f9db6450fbf");
-    private static final CelestialBody BODY_A = new CelestialBody(UUID_BODY_A,"Body1",1,1, CelestialBodyTypes.sun,1,1,1,1,1,1,1);
-    private static final CelestialBody BODY_B = new CelestialBody(UUID_BODY_B,"Body2",1,1, CelestialBodyTypes.planet,1,1,1,1,1,1,1);
+    private static final CelestialBody BODY_A = new CelestialBody(UUID_BODY_A,"Body1",1,1, "sun",1,1,1,1,1,1,1);
+    private static final CelestialBody BODY_B = new CelestialBody(UUID_BODY_B,"Body2",1,1, "planet",1,1,1,1,1,1,1);
 
     @BeforeAll
     static void setUp(){

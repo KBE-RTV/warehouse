@@ -2,7 +2,6 @@ package com.kbertv.warehouse.WarehouseService;
 
 import com.kbertv.warehouse.config.CacheConfig;
 import com.kbertv.warehouse.model.CelestialBody;
-import com.kbertv.warehouse.model.CelestialBodyTypes;
 import com.kbertv.warehouse.service.CelestialBodyRepository;
 import com.kbertv.warehouse.service.IWarehouseService;
 import com.kbertv.warehouse.service.PlanetarySystemRepository;
@@ -20,6 +19,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import redis.embedded.RedisServer;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.Optional;
@@ -53,7 +53,7 @@ public class WarehouseCachingIntegrationTest {
 
     @Test
     void givenRedisCaching_whenFindComponentById_thenComponentReturnedFromCache() {
-        CelestialBody celestialBody1 = new CelestialBody(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5"),"Body1",1,1, CelestialBodyTypes.sun,1,1,1,1,1,1,1);
+        CelestialBody celestialBody1 = new CelestialBody(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5"),"Body1",1,1, "sun",1,1,1,1,1,1,1);
         given(mockCelestialBodyRepository.findById(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5")))
                 .willReturn(Optional.of(celestialBody1));
 
