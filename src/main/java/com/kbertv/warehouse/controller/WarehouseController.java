@@ -40,7 +40,6 @@ public class WarehouseController {
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @GetMapping(value = "/products/{id}", produces = "application/json")

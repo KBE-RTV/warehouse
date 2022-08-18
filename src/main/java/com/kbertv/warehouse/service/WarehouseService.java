@@ -4,6 +4,7 @@ import com.kbertv.warehouse.model.CelestialBody;
 import com.kbertv.warehouse.model.PlanetarySystem;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,7 @@ public class WarehouseService implements IWarehouseService {
     }
 
     @Override
+    @Cacheable(value = "componentCache")
     public Optional<CelestialBody> getComponent(UUID id) {
         return celestialBodyRepository.findById(id);
     }
@@ -48,6 +50,7 @@ public class WarehouseService implements IWarehouseService {
     }
 
     @Override
+    @Cacheable(value = "productCache")
     public Optional<PlanetarySystem> getProduct(UUID id) {
         return planetarySystemRepository.findById(id);
     }
@@ -64,6 +67,7 @@ public class WarehouseService implements IWarehouseService {
     }
 
     @EventListener(ApplicationReadyEvent.class)
+    @Override
     public void importCSVAtStartUp() {
         try {
             importCSVToCelestialBodyRepo("target/classes/components.csv");
