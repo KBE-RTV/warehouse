@@ -1,7 +1,6 @@
 package com.kbertv.warehouse.WarehouseService;
 
 import com.kbertv.warehouse.model.CelestialBody;
-import com.kbertv.warehouse.model.CelestialBodyTypes;
 import com.kbertv.warehouse.service.CelestialBodyRepository;
 import com.kbertv.warehouse.service.WarehouseService;
 import org.junit.jupiter.api.Assertions;
