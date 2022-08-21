@@ -10,20 +10,19 @@ services:
       - 8080:8080
  #   volumes:
  #     - ./:/app/app
-    volumes:
-      - ./.docker/redis:/redis-service/logs
     depends_on:
       - mongo_db
       - redis_server
   mongo_db:
-    #container_name: mongodb
-    image: "mongo:4.4.3"
+    container_name: mongodb
+    image: 'mongo:4.4.3'
     restart: always
     ports:
       - 27017:27017
   redis_server:
     container_name: redis
-    image: 'redis'
+    image: 'redis:7.0.4'
+    #hostname: redis_server
     restart: always
     ports:
       - 6379:6379
