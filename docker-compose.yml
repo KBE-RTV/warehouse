@@ -8,8 +8,6 @@ services:
       dockerfile: .docker/Dockerfile
     ports:
       - 8080:8080
- #   volumes:
- #     - ./:/app/app
     depends_on:
       - mongo_db
       - redis_server
@@ -22,7 +20,6 @@ services:
   redis_server:
     container_name: redis
     image: 'redis:7.0.4'
-    #hostname: redis_server
     restart: always
     ports:
       - 6379:6379
