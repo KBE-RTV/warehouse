@@ -12,6 +12,7 @@ RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../warehouse-0.
 FROM openjdk:17-oracle
 VOLUME /tmp
 ARG DEPENDENCY=/workspace/app/target/dependency
+COPY --from=build /workspace/app/target/classes /target/classes
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
