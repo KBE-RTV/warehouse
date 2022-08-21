@@ -23,4 +23,6 @@ public interface IWarehouseService {
     List<PlanetarySystem> importCSVToPlanetarySystemRepo(String path) throws IOException;
 
     ArrayList<PlanetarySystem> saveProducts(ArrayList<PlanetarySystem> planetarySystem);
+
+     void importCSVAtStartUp();
 }
