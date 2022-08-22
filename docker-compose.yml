@@ -1,7 +1,7 @@
 version: "3.9"
 services:
-  app:
-    container_name: SpringBootApp
+  warehouse:
+    container_name: WarehouseApp
     command: java -jar target/demo-0.0.1-SNAPSHOT.jar
     build:
       context: .
@@ -11,15 +11,23 @@ services:
     depends_on:
       - mongo_db
       - redis_server
+    networks:
+      - common_network
   mongo_db:
-    container_name: mongodb
+    container_name: mongodb_warehouse
     image: 'mongo:4.4.3'
     restart: always
     ports:
       - 27017:27017
+    networks:
+      - common_network
   redis_server:
-    container_name: redis
+    container_name: redis_warehouse
     image: 'redis:7.0.4'
     restart: always
     ports:
       - 6379:6379
+    networks:
+      - common_network
+networks:
+  common_network:
