@@ -28,6 +28,7 @@ public class WarehouseService implements IWarehouseService {
     }
 
     @Override
+    @Cacheable(value = "allComponentsCache")
     public List<CelestialBody> getAllComponents() {
         return celestialBodyRepository.findAll();
     }
@@ -45,6 +46,7 @@ public class WarehouseService implements IWarehouseService {
     }
 
     @Override
+    @Cacheable(value = "allProductsCache")
     public List<PlanetarySystem> getAllProducts() {
         return planetarySystemRepository.findAll();
     }
