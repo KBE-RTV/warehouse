@@ -9,8 +9,7 @@ import java.util.UUID;
 
 public class TextToCelestialBodyConverter extends AbstractCsvConverter {
     @Override
-    public Object convertToRead(String value) throws CsvDataTypeMismatchException, CsvConstraintViolationException {
-        //TODO Converter not used
+    public Object convertToRead(String value) {
         String[] split = value.split("&", 0);
         System.out.println(split[0]);
         CelestialBody celestialBody = new CelestialBody();
