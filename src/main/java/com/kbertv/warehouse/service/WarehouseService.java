@@ -3,6 +3,7 @@ package com.kbertv.warehouse.service;
 import com.kbertv.warehouse.model.CelestialBody;
 import com.kbertv.warehouse.model.PlanetarySystem;
 import com.opencsv.bean.CsvToBeanBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.event.EventListener;
@@ -20,6 +21,10 @@ public class WarehouseService implements IWarehouseService {
 
     private final CelestialBodyRepository celestialBodyRepository;
     private final PlanetarySystemRepository planetarySystemRepository;
+    @Value("${csv.import.path.components}")
+    private String componentImportPath;
+    @Value("${csv.import.path.products}")
+    private String productImportPath;
 
     public WarehouseService(CelestialBodyRepository celestialBodyRepository, PlanetarySystemRepository planetarySystemRepository) {
         this.celestialBodyRepository = celestialBodyRepository;
@@ -28,7 +33,7 @@ public class WarehouseService implements IWarehouseService {
     }
 
     @Override
-    @Cacheable(value = "allComponentsCache")
+    @Cacheable(value = "componentsCache")
     public List<CelestialBody> getAllComponents() {
         return celestialBodyRepository.findAll();
     }
@@ -46,7 +51,7 @@ public class WarehouseService implements IWarehouseService {
     }
 
     @Override
-    @Cacheable(value = "allProductsCache")
+    @Cacheable(value = "productsCache")
     public List<PlanetarySystem> getAllProducts() {
         return planetarySystemRepository.findAll();
     }
@@ -72,14 +77,14 @@ public class WarehouseService implements IWarehouseService {
     @Override
     public void importCSVAtStartUp() {
         try {
-            importCSVToCelestialBodyRepo("target/classes/components.csv");
+            importCSVToCelestialBodyRepo(componentImportPath);
             System.out.println("Component CSV Imported");
         } catch (IOException e) {
             System.err.println("Component CSV not Found");
         }
 
         try {
-            importCSVToPlanetarySystemRepo("target/classes/products.csv");
+            List<PlanetarySystem> planetarySystems = importCSVToPlanetarySystemRepo(productImportPath);
             System.out.println("Product CSV Imported");
         } catch (IOException e) {
             System.err.println("Product CSV not Found");

@@ -1,5 +1,6 @@
 package com.kbertv.warehouse.model;
 
+import com.kbertv.warehouse.converter.TextToCelestialBodyConverter;
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
 import lombok.*;
@@ -26,6 +27,6 @@ public class PlanetarySystem implements Serializable {
     @CsvBindByName
     private String owner;
 
-    @CsvBindAndSplitByName(elementType= UUID.class, splitOn = "\\|")
-    private ArrayList<UUID> celestialBodies = new ArrayList<>();
+    @CsvBindAndSplitByName(elementType= CelestialBody.class, splitOn = "\\|", converter = TextToCelestialBodyConverter.class, collectionType = ArrayList.class)
+    private ArrayList<CelestialBody> celestialBodies = new ArrayList<>();
 }
