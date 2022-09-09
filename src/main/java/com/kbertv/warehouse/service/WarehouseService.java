@@ -3,6 +3,7 @@ package com.kbertv.warehouse.service;
 import com.kbertv.warehouse.model.CelestialBody;
 import com.kbertv.warehouse.model.PlanetarySystem;
 import com.opencsv.bean.CsvToBeanBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.cache.annotation.Cacheable;
@@ -17,6 +18,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class WarehouseService implements IWarehouseService {
 
     private final CelestialBodyRepository celestialBodyRepository;
@@ -78,16 +80,20 @@ public class WarehouseService implements IWarehouseService {
     public void importCSVAtStartUp() {
         try {
             importCSVToCelestialBodyRepo(componentImportPath);
-            System.out.println("Component CSV Imported");
+            log.info("Component CSV Imported");
         } catch (IOException e) {
-            System.err.println("Component CSV not Found");
+            log.error("Component CSV on Path not Found: "+componentImportPath);
+        }catch (NumberFormatException e){
+            log.error("Component could not be parsed: "+e);
         }
 
         try {
             List<PlanetarySystem> planetarySystems = importCSVToPlanetarySystemRepo(productImportPath);
-            System.out.println("Product CSV Imported");
+            log.info("Product CSV Imported");
         } catch (IOException e) {
-            System.err.println("Product CSV not Found");
+            log.error("Product CSV on Path not Found: "+componentImportPath);
+        }catch (NumberFormatException e){
+            log.error("Product could not be parsed: "+e);
         }
     }
 

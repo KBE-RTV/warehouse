@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.kbertv.warehouse.model.CelestialBody;
 import com.kbertv.warehouse.model.PlanetarySystem;
 import com.kbertv.warehouse.service.IWarehouseService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
+@Slf4j
 public class WarehouseController {
 
     private final IWarehouseService warehouseService;
@@ -54,7 +56,6 @@ public class WarehouseController {
 
     @PostMapping(value = "/products", produces = "application/json")
     public ResponseEntity<String> saveProduct(@RequestBody ArrayList<PlanetarySystem> planetarySystems){
-        System.out.println(planetarySystems.get(0));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

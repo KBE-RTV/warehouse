@@ -11,7 +11,6 @@ public class TextToCelestialBodyConverter extends AbstractCsvConverter {
     @Override
     public Object convertToRead(String value) {
         String[] split = value.split("&", 0);
-        System.out.println(split[0]);
         CelestialBody celestialBody = new CelestialBody();
         celestialBody.setId(UUID.fromString(split[0]));
         celestialBody.setName(split[1]);
