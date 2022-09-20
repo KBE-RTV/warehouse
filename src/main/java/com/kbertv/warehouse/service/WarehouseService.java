@@ -33,9 +33,6 @@ public class WarehouseService implements IWarehouseService {
 
     /**
      * Instantiates a new Warehouse service.
-     *
-     * @param celestialBodyRepository   the celestial body repository
-     * @param planetarySystemRepository the planetary system repository
      */
     public WarehouseService(CelestialBodyRepository celestialBodyRepository, PlanetarySystemRepository planetarySystemRepository) {
         this.celestialBodyRepository = celestialBodyRepository;
@@ -121,7 +118,7 @@ public class WarehouseService implements IWarehouseService {
     }
 
     /**
-     * Corrects the amount value of List entries
+     * Corrects the amount value of Celestial Bodies in a List
      *
      * @param initialList List to correct
      * @return corrected List

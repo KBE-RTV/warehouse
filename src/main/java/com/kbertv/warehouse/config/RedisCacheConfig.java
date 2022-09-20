@@ -9,9 +9,7 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import java.time.Duration;
 
-/**
- * Configuration for Redis Cache
- */
+
 @EnableCaching
 @Configuration
 public class RedisCacheConfig {

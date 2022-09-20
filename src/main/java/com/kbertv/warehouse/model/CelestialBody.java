@@ -40,11 +40,6 @@ public class CelestialBody implements Serializable {
     @CsvBindByName
     private float surfaceTemperature;
 
-    /**
-     * Adds an int value to the amount field
-     *
-     * @param amount int value
-     */
     public void addAmount(int amount){
         if (amount>0){
             this.amount +=amount;

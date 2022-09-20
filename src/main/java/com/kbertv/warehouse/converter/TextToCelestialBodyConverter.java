@@ -8,7 +8,7 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import java.util.UUID;
 
 /**
- * Custom CSV Converter for {@link com.kbertv.warehouse.model.CelestialBody} Lists in CSV. Elements are seperated by &.
+ * Custom CSV Converter for {@link com.kbertv.warehouse.model.CelestialBody} Lists in CSV. Elements are seperated by '&'.
  */
 public class TextToCelestialBodyConverter extends AbstractCsvConverter {
     @Override

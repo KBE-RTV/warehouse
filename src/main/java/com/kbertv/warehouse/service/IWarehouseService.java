@@ -13,66 +13,37 @@ import java.util.UUID;
  * Interface for the Warehouse Service
  */
 public interface IWarehouseService {
-    /**
-     * Gets all Components form the DB
-     *
-     * @return List of all Components
-     */
+
     List<CelestialBody> getAllComponents();
 
     /**
-     * Gets a specific Component from the DB
-     *
-     * @param id UUID of the Component
-     * @return  Optional with Component if UUID could be found.
-     *          Empty Optional if UUID could not be found.
+     * @return  Optional with Component if UUID could be found or empty if UUID could not be found.
      */
     Optional<CelestialBody> getComponent(UUID id);
 
-    /**
-     * Imports a Component CSV into the DB
-     *
-     * @param path Path to the CSV
-     * @return List of all Imported Items
-     * @throws IOException If the Path doesn't exist.
-     */
-    List<CelestialBody> importCSVToCelestialBodyRepo(String path) throws IOException;
-
-    /**
-     * Gets all Products form the DB
-     *
-     * @return List of all Products
-     */
     List<PlanetarySystem> getAllProducts();
 
     /**
-     * Gets a specific Product from the DB
-     *
-     * @param id UUID of the Product
-     * @return  Optional with Product if UUID could be found.
-     *          Empty Optional if UUID could not be found.
+     * @return  Optional with Component if UUID could be found or empty if UUID could not be found.
      */
     Optional<PlanetarySystem> getProduct(UUID id);
 
+    ArrayList<PlanetarySystem> saveProducts(ArrayList<PlanetarySystem> planetarySystem);
+
     /**
-     * Imports a Product CSV into the DB
-     *
-     * @param path Path to the CSV
      * @return List of all Imported Items
      * @throws IOException If the Path doesn't exist.
      */
     List<PlanetarySystem> importCSVToPlanetarySystemRepo(String path) throws IOException;
 
     /**
-     * Save Products to the DB
-     *
-     * @param planetarySystem Product to be saved
-     * @return all saved Products
+     * @return List of all Imported Items
+     * @throws IOException If the Path doesn't exist.
      */
-    ArrayList<PlanetarySystem> saveProducts(ArrayList<PlanetarySystem> planetarySystem);
+    List<CelestialBody> importCSVToCelestialBodyRepo(String path) throws IOException;
 
     /**
-     * Import csv at start up.
+     * Calls {@link #importCSVToCelestialBodyRepo(String) importCSVToCelestialBodyRepo} and {@link #importCSVToPlanetarySystemRepo(String) importCSVToPlanetarySystemRepo}
      */
     void importCSVAtStartUp();
 }
