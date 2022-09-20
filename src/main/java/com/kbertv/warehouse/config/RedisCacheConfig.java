@@ -9,9 +9,17 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import java.time.Duration;
 
+/**
+ * Configuration for Redis Cache
+ */
 @EnableCaching
 @Configuration
-public class CacheConfig {
+public class RedisCacheConfig {
+    /**
+     * Creates a RedisCacheManagerBuilderCustomizer with two Caches, one for products and one for components, each with a TTL of 10 min.
+     *
+     * @return RedisCacheManagerBuilderCustomizer
+     */
     @Bean
     public RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer() {
         return (builder) -> builder
@@ -21,6 +29,11 @@ public class CacheConfig {
                         RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(10)));
     }
 
+    /**
+     * Creates a Cache configuration with a TTL of 60 min, disabled Null Values and GenericJackson2JsonRedisSerializer as serializer.
+     *
+     * @return RedisCacheConfiguration
+     */
     @Bean
     public RedisCacheConfiguration cacheConfiguration() {
         return RedisCacheConfiguration.defaultCacheConfig()

@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
+/**
+ * Repository to interact with the Mongo DB
+ */
 @Repository
 public interface CelestialBodyRepository extends MongoRepository<CelestialBody, UUID> {
 }

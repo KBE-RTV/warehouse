@@ -1,7 +1,8 @@
 package com.kbertv.warehouse.WarehouseService;
 
-import com.kbertv.warehouse.config.CacheConfig;
+import com.kbertv.warehouse.config.RedisCacheConfig;
 import com.kbertv.warehouse.model.CelestialBody;
+import com.kbertv.warehouse.model.PlanetarySystem;
 import com.kbertv.warehouse.service.CelestialBodyRepository;
 import com.kbertv.warehouse.service.IWarehouseService;
 import com.kbertv.warehouse.service.PlanetarySystemRepository;
@@ -22,6 +23,7 @@ import redis.embedded.RedisServer;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,7 +32,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@Import({ CacheConfig.class, WarehouseService.class})
+@Import({ RedisCacheConfig.class, WarehouseService.class})
 @ExtendWith(SpringExtension.class)
 @EnableCaching
 @ImportAutoConfiguration(classes = {
@@ -41,30 +43,47 @@ public class WarehouseCachingIntegrationTest {
 
     @MockBean
     private CelestialBodyRepository mockCelestialBodyRepository;
-
     @MockBean
     private PlanetarySystemRepository mockPlanetarySystemRepository;
-
     @Autowired
     private IWarehouseService warehouseService;
-
     @Autowired
     private CacheManager cacheManager;
 
     @Test
-    void givenRedisCaching_whenFindComponentById_thenComponentReturnedFromCache() {
-        CelestialBody celestialBody1 = new CelestialBody(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5"),"Body1",1,1, "sun",1,1,1,1,1,1,1);
-        given(mockCelestialBodyRepository.findById(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5")))
-                .willReturn(Optional.of(celestialBody1));
+    void givenRedisCachingWhenFindComponentByIdThenComponentReturnedFromCacheTest() {
+        UUID testID = UUID.fromString("e0225629-05de-40fc-a29e-5c88e0c4c73c");
+        CelestialBody celestialBody = new CelestialBody();
+        celestialBody.setId(testID);
+        given(mockCelestialBodyRepository.findById(testID))
+                .willReturn(Optional.of(celestialBody));
 
-        Optional<CelestialBody> itemCacheMiss = warehouseService.getComponent(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5"));
-        Optional<CelestialBody> itemCacheHit = warehouseService.getComponent(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5"));
+        Optional<CelestialBody> itemCacheMiss = warehouseService.getComponent(testID);
+        Optional<CelestialBody> itemCacheHit = warehouseService.getComponent(testID);
 
-        assertThat(itemCacheMiss.get()).isEqualTo(celestialBody1);
-        assertThat(itemCacheHit.get()).isEqualTo(celestialBody1);
+        assertThat(itemCacheMiss.orElseThrow()).isEqualTo(celestialBody);
+        assertThat(itemCacheHit.orElseThrow()).isEqualTo(celestialBody);
 
-        verify(mockCelestialBodyRepository, times(1)).findById(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5"));
-        assertThat(itemFromCache()).isEqualTo(celestialBody1);
+        verify(mockCelestialBodyRepository, times(1)).findById(testID);
+        assertThat(componentFromCache()).isEqualTo(celestialBody);
+    }
+
+    @Test
+    void givenRedisCachingWhenFindProductByIdThenProductReturnedFromCacheTest() {
+        UUID testID = UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5");
+        PlanetarySystem planetarySystem = new PlanetarySystem();
+        planetarySystem.setId(testID);
+        given(mockPlanetarySystemRepository.findById(testID))
+                .willReturn(Optional.of(planetarySystem));
+
+        Optional<PlanetarySystem> itemCacheMiss = warehouseService.getProduct(testID);
+        Optional<PlanetarySystem> itemCacheHit = warehouseService.getProduct(testID);
+
+        assertThat(itemCacheMiss.orElseThrow()).isEqualTo(planetarySystem);
+        assertThat(itemCacheHit.orElseThrow()).isEqualTo(planetarySystem);
+
+        verify(mockPlanetarySystemRepository, times(1)).findById(testID);
+        assertThat(productFromCache()).isEqualTo(planetarySystem);
     }
 
     @TestConfiguration
@@ -87,7 +106,10 @@ public class WarehouseCachingIntegrationTest {
         }
     }
 
-    private Object itemFromCache() {
-        return cacheManager.getCache("componentCache").get(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5")).get();
+    private Object componentFromCache() {
+        return Objects.requireNonNull(Objects.requireNonNull(cacheManager.getCache("componentCache")).get(UUID.fromString("e0225629-05de-40fc-a29e-5c88e0c4c73c"))).get();
+    }
+    private Object productFromCache() {
+        return Objects.requireNonNull(Objects.requireNonNull(cacheManager.getCache("productCache")).get(UUID.fromString("9708b2f4-98d6-4891-b59e-52da0a484fc5"))).get();
     }
 }

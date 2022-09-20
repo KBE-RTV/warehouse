@@ -8,6 +8,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 import java.util.UUID;
 
+/**
+ * Model for an Celestial Body
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -40,6 +43,11 @@ public class CelestialBody implements Serializable {
     @CsvBindByName
     private float surfaceTemperature;
 
+    /**
+     * Adds an int value to the amount field
+     *
+     * @param amount int value
+     */
     public void addAmount(int amount){
         if (amount>0){
             this.amount +=amount;

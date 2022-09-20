@@ -11,6 +11,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * Model for an Planetary System
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

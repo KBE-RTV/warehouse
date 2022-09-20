@@ -24,6 +24,7 @@ public class WarehouseController {
     public WarehouseController(IWarehouseService warehouseService) {
         this.warehouseService = warehouseService;
     }
+
     @GetMapping(value = "/components", produces = "application/json")
     public ResponseEntity<String> getAllComponents(){
         return createResponseEntity(warehouseService.getAllComponents());

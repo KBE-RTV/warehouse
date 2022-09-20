@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Service with provides the functionality of the Warehouse
+ */
 @Service
 @Slf4j
 public class WarehouseService implements IWarehouseService {
@@ -28,6 +31,12 @@ public class WarehouseService implements IWarehouseService {
     @Value("${csv.import.path.products}")
     private String productImportPath;
 
+    /**
+     * Instantiates a new Warehouse service.
+     *
+     * @param celestialBodyRepository   the celestial body repository
+     * @param planetarySystemRepository the planetary system repository
+     */
     public WarehouseService(CelestialBodyRepository celestialBodyRepository, PlanetarySystemRepository planetarySystemRepository) {
         this.celestialBodyRepository = celestialBodyRepository;
 
@@ -111,6 +120,12 @@ public class WarehouseService implements IWarehouseService {
                 .parse();
     }
 
+    /**
+     * Corrects the amount value of List entries
+     *
+     * @param initialList List to correct
+     * @return corrected List
+     */
     public List<CelestialBody> adjustAmountWithCelestialBodyRepoEntries(List <CelestialBody> initialList){
         for (CelestialBody celestialBody: initialList) {
             Optional<CelestialBody> potentialEntry = celestialBodyRepository.findById(celestialBody.getId());
