@@ -47,7 +47,7 @@ public class ComponentFeaturesTest {
     }
 
     @Test
-     void adjustAmountWithCelestialBodyRepoEntriesOverlapTest(){
+     void givenAPresentWhenAddingAAndBThenReturnedTwoAAndBTest(){
         Mockito.when(celestialBodyRepository.findById(UUID_BODY_A)).thenReturn(Optional.of(BODY_A));
         Mockito.when(celestialBodyRepository.findById(UUID_BODY_B)).thenReturn(Optional.empty());
 
@@ -55,7 +55,7 @@ public class ComponentFeaturesTest {
     }
 
     @Test
-    void adjustAmountWithCelestialBodyRepoEntriesNoOverlapTest(){
+    void givenAPresentWhenAddingBThenReturnedAAndBTest(){
         Mockito.when(celestialBodyRepository.findById(UUID_BODY_A)).thenReturn(Optional.of(BODY_A));
         Mockito.when(celestialBodyRepository.findById(UUID_BODY_B)).thenReturn(Optional.empty());
 
@@ -63,7 +63,7 @@ public class ComponentFeaturesTest {
     }
 
     @Test
-    void adjustAmountWithCelestialBodyRepoEntriesEmptyTest(){
+    void givenAPresentThenAddingNothingThenReturnedNothingTest(){
         Mockito.when(celestialBodyRepository.findById(UUID_BODY_A)).thenReturn(Optional.of(BODY_A));
         Mockito.when(celestialBodyRepository.findById(UUID_BODY_B)).thenReturn(Optional.empty());
 
