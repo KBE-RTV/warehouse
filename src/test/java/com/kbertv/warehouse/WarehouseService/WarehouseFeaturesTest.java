@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
-public class ComponentFeaturesTest {
+public class WarehouseFeaturesTest {
 
     @Mock
     private static CelestialBodyRepository celestialBodyRepository;

@@ -2,8 +2,6 @@ package com.kbertv.warehouse.converter;
 
 import com.kbertv.warehouse.model.CelestialBody;
 import com.opencsv.bean.AbstractCsvConverter;
-import com.opencsv.exceptions.CsvConstraintViolationException;
-import com.opencsv.exceptions.CsvDataTypeMismatchException;
 
 import java.util.UUID;
 

@@ -14,21 +14,21 @@ import java.util.UUID;
  */
 public interface IWarehouseService {
 
-    List<CelestialBody> getAllComponents();
+    List<CelestialBody> getAllCelestialBodies();
 
     /**
-     * @return  Optional with Component if UUID could be found or empty if UUID could not be found.
+     * @return  Optional with celestial body if UUID could be found or empty if UUID could not be found.
      */
-    Optional<CelestialBody> getComponent(UUID id);
+    Optional<CelestialBody> getCelestialBody(UUID id);
 
-    List<PlanetarySystem> getAllProducts();
+    List<PlanetarySystem> getAllPlanetarySystems();
 
     /**
-     * @return  Optional with Component if UUID could be found or empty if UUID could not be found.
+     * @return  Optional with celestial body if UUID could be found or empty if UUID could not be found.
      */
-    Optional<PlanetarySystem> getProduct(UUID id);
+    Optional<PlanetarySystem> getPlanetarySystem(UUID id);
 
-    ArrayList<PlanetarySystem> saveProducts(ArrayList<PlanetarySystem> planetarySystem);
+    ArrayList<PlanetarySystem> savePlanetarySystems(ArrayList<PlanetarySystem> planetarySystem);
 
     /**
      * @return List of all Imported Items

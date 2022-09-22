@@ -26,10 +26,10 @@ public class WarehouseService implements IWarehouseService {
 
     private final CelestialBodyRepository celestialBodyRepository;
     private final PlanetarySystemRepository planetarySystemRepository;
-    @Value("${csv.import.path.components}")
-    private String componentImportPath;
-    @Value("${csv.import.path.products}")
-    private String productImportPath;
+    @Value("${csv.import.path.celestialBodies}")
+    private String celestialBodyImportPath;
+    @Value("${csv.import.path.planetarySystems}")
+    private String planetarySystemImportPath;
 
     /**
      * Instantiates a new Warehouse service.
@@ -41,13 +41,13 @@ public class WarehouseService implements IWarehouseService {
     }
 
     @Override
-    public List<CelestialBody> getAllComponents() {
+    public List<CelestialBody> getAllCelestialBodies() {
         return celestialBodyRepository.findAll();
     }
 
     @Override
-    @Cacheable(value = "componentCache")
-    public Optional<CelestialBody> getComponent(UUID id) {
+    @Cacheable(value = "celestialBodyCache")
+    public Optional<CelestialBody> getCelestialBody(UUID id) {
         return celestialBodyRepository.findById(id);
     }
 
@@ -58,13 +58,13 @@ public class WarehouseService implements IWarehouseService {
     }
 
     @Override
-    public List<PlanetarySystem> getAllProducts() {
+    public List<PlanetarySystem> getAllPlanetarySystems() {
         return planetarySystemRepository.findAll();
     }
 
     @Override
-    @Cacheable(value = "productCache")
-    public Optional<PlanetarySystem> getProduct(UUID id) {
+    @Cacheable(value = "planetarySystemCache")
+    public Optional<PlanetarySystem> getPlanetarySystem(UUID id) {
         return planetarySystemRepository.findById(id);
     }
 
@@ -75,7 +75,7 @@ public class WarehouseService implements IWarehouseService {
     }
 
     @Override
-    public ArrayList<PlanetarySystem> saveProducts(ArrayList<PlanetarySystem> planetarySystems) {
+    public ArrayList<PlanetarySystem> savePlanetarySystems(ArrayList<PlanetarySystem> planetarySystems) {
         return (ArrayList<PlanetarySystem>) planetarySystemRepository.saveAll(planetarySystems);
     }
 
@@ -83,21 +83,21 @@ public class WarehouseService implements IWarehouseService {
     @Override
     public void importCSVAtStartUp() {
         try {
-            importCSVToCelestialBodyRepo(componentImportPath);
-            log.info("Component CSV Imported");
+            importCSVToCelestialBodyRepo(celestialBodyImportPath);
+            log.info("Celestial body CSV Imported");
         } catch (IOException e) {
-            log.error("Component CSV on Path not Found: "+componentImportPath);
+            log.error("Celestial body CSV on Path not Found: "+ celestialBodyImportPath);
         }catch (NumberFormatException e){
-            log.error("Component could not be parsed: "+e);
+            log.error("Celestial body could not be parsed: "+e);
         }
 
         try {
-            List<PlanetarySystem> planetarySystems = importCSVToPlanetarySystemRepo(productImportPath);
-            log.info("Product CSV Imported");
+            importCSVToPlanetarySystemRepo(planetarySystemImportPath);
+            log.info("Planetary system CSV Imported");
         } catch (IOException e) {
-            log.error("Product CSV on Path not Found: "+componentImportPath);
+            log.error("Planetary system CSV on Path not Found: "+ celestialBodyImportPath);
         }catch (NumberFormatException e){
-            log.error("Product could not be parsed: "+e);
+            log.error("Planetary system could not be parsed: "+e);
         }
     }
 
