@@ -9,25 +9,25 @@ services:
     ports:
       - "8081:8081"
     depends_on:
-      - mongo_db
-      - redis_server
+      - mongoDB
+      - redisCache
     networks:
-      - common_network
-  mongo_db:
-    container_name: mongodb_warehouse
+      - commonNetwork
+  mongoDB:
+    container_name: mongoDBWarehouse
     image: 'mongo:4.4.3'
     restart: always
     ports:
       - "27017:27017"
     networks:
-      - common_network
-  redis_server:
-    container_name: redis_warehouse
+      - commonNetwork
+  redisCache:
+    container_name: redisCacheWarehouse
     image: 'redis:7.0.4'
     restart: always
     ports:
       - "6379:6379"
     networks:
-      - common_network
+      - commonNetwork
 networks:
-  common_network:
+  commonNetwork:
