@@ -9,20 +9,41 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Interface for the Warehouse Service
+ */
 public interface IWarehouseService {
-    List<CelestialBody> getAllComponents();
 
-    Optional<CelestialBody> getComponent(UUID id);
+    List<CelestialBody> getAllCelestialBodies();
 
-    List<CelestialBody> importCSVToCelestialBodyRepo(String path) throws IOException;
+    /**
+     * @return Optional with celestial body if UUID could be found or empty if UUID could not be found.
+     */
+    Optional<CelestialBody> getCelestialBody(UUID id);
 
-    List<PlanetarySystem> getAllProducts();
+    List<PlanetarySystem> getAllPlanetarySystems();
 
-    Optional<PlanetarySystem> getProduct(UUID id);
+    /**
+     * @return Optional with celestial body if UUID could be found or empty if UUID could not be found.
+     */
+    Optional<PlanetarySystem> getPlanetarySystem(UUID id);
 
+    ArrayList<PlanetarySystem> savePlanetarySystems(ArrayList<PlanetarySystem> planetarySystem);
+
+    /**
+     * @return List of all Imported Items
+     * @throws IOException If the Path doesn't exist.
+     */
     List<PlanetarySystem> importCSVToPlanetarySystemRepo(String path) throws IOException;
 
-    ArrayList<PlanetarySystem> saveProducts(ArrayList<PlanetarySystem> planetarySystem);
+    /**
+     * @return List of all Imported Items
+     * @throws IOException If the Path doesn't exist.
+     */
+    List<CelestialBody> importCSVToCelestialBodyRepo(String path) throws IOException;
 
-     void importCSVAtStartUp();
+    /**
+     * Calls {@link #importCSVToCelestialBodyRepo(String) importCSVToCelestialBodyRepo} and {@link #importCSVToPlanetarySystemRepo(String) importCSVToPlanetarySystemRepo}
+     */
+    void importCSVAtStartUp();
 }

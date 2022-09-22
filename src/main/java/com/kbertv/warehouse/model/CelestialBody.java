@@ -1,7 +1,9 @@
 package com.kbertv.warehouse.model;
 
 import com.opencsv.bean.CsvBindByName;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -40,9 +42,9 @@ public class CelestialBody implements Serializable {
     @CsvBindByName
     private float surfaceTemperature;
 
-    public void addAmount(int amount){
-        if (amount>0){
-            this.amount +=amount;
+    public void addAmount(int amount) {
+        if (amount > 0) {
+            this.amount += amount;
         }
     }
 }
