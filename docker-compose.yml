@@ -8,6 +8,13 @@ services:
       dockerfile: .docker/Dockerfile
     ports:
       - "8081:8081"
+    environment:
+      - spring_data_mongodb_host=mongoDB
+      - spring_data_mongodb_port=27017
+      - spring_data_mongodb_database=warehouseDB
+      - spring_redis_host=redisCache
+      - spring_redis_port=6379
+      - spring_redis_database=0
     depends_on:
       - mongoDB
       - redisCache
