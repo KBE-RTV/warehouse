@@ -26,42 +26,42 @@ public class WarehouseController {
     }
 
     @GetMapping(value = "/celestialBodies", produces = "application/json")
-    public ResponseEntity<String> getAllCelestialBodies(){
+    public ResponseEntity<String> getAllCelestialBodies() {
         return createResponseEntity(warehouseService.getAllCelestialBodies());
     }
 
     @GetMapping(value = "/planetarySystems", produces = "application/json")
-    public ResponseEntity<String> getAllPlanetarySystems(){
+    public ResponseEntity<String> getAllPlanetarySystems() {
         return createResponseEntity(warehouseService.getAllPlanetarySystems());
     }
 
     @GetMapping(value = "/celestialBodies/{id}", produces = "application/json")
-    public ResponseEntity<String> getCelestialBody(@PathVariable("id") String id){
+    public ResponseEntity<String> getCelestialBody(@PathVariable("id") String id) {
         Optional<CelestialBody> celestialBody = warehouseService.getCelestialBody(UUID.fromString(id));
-        if(celestialBody.isPresent()){
+        if (celestialBody.isPresent()) {
             return createResponseEntity(celestialBody);
-        }else{
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping(value = "/planetarySystems/{id}", produces = "application/json")
-    public ResponseEntity<String> getPlanetarySystem(@PathVariable("id") String id){
+    public ResponseEntity<String> getPlanetarySystem(@PathVariable("id") String id) {
         Optional<PlanetarySystem> planetarySystem = warehouseService.getPlanetarySystem(UUID.fromString(id));
-        if(planetarySystem.isPresent()){
+        if (planetarySystem.isPresent()) {
             return createResponseEntity(planetarySystem);
-        }else{
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping(value = "/planetarySystems", produces = "application/json")
-    public ResponseEntity<String> savePlanetarySystem(@RequestBody ArrayList<PlanetarySystem> planetarySystems){
+    public ResponseEntity<String> savePlanetarySystem(@RequestBody ArrayList<PlanetarySystem> planetarySystems) {
         warehouseService.savePlanetarySystems(planetarySystems);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private ResponseEntity<String> createResponseEntity(Object object){
+    private ResponseEntity<String> createResponseEntity(Object object) {
         try {
             String objectAsJson = objectMapper.writeValueAsString(object);
             return new ResponseEntity<>(objectAsJson, HttpStatus.OK);

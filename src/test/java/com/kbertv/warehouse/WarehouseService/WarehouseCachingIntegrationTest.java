@@ -32,7 +32,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@Import({ RedisCacheConfig.class, WarehouseService.class})
+@Import({RedisCacheConfig.class, WarehouseService.class})
 @ExtendWith(SpringExtension.class)
 @EnableCaching
 @ImportAutoConfiguration(classes = {
@@ -109,6 +109,7 @@ public class WarehouseCachingIntegrationTest {
     private Object celestialBodyFromCache(Object key) {
         return Objects.requireNonNull(Objects.requireNonNull(cacheManager.getCache("celestialBodyCache")).get(key)).get();
     }
+
     private Object planetarySystemFromCache(Object key) {
         return Objects.requireNonNull(Objects.requireNonNull(cacheManager.getCache("planetarySystemCache")).get(key)).get();
     }

@@ -70,7 +70,7 @@ public class WarehouseService implements IWarehouseService {
 
     @Override
     public List<PlanetarySystem> importCSVToPlanetarySystemRepo(String path) throws IOException {
-        List <PlanetarySystem> importedPlanetarySystems = importCSVToPlanetarySystems(path);
+        List<PlanetarySystem> importedPlanetarySystems = importCSVToPlanetarySystems(path);
         return planetarySystemRepository.saveAll(importedPlanetarySystems);
     }
 
@@ -86,18 +86,18 @@ public class WarehouseService implements IWarehouseService {
             importCSVToCelestialBodyRepo(celestialBodyImportPath);
             log.info("Celestial body CSV Imported");
         } catch (IOException e) {
-            log.error("Celestial body CSV on Path not Found: "+ celestialBodyImportPath);
-        }catch (NumberFormatException e){
-            log.error("Celestial body could not be parsed: "+e);
+            log.error("Celestial body CSV on Path not Found: " + celestialBodyImportPath);
+        } catch (NumberFormatException e) {
+            log.error("Celestial body could not be parsed: " + e);
         }
 
         try {
             importCSVToPlanetarySystemRepo(planetarySystemImportPath);
             log.info("Planetary system CSV Imported");
         } catch (IOException e) {
-            log.error("Planetary system CSV on Path not Found: "+ celestialBodyImportPath);
-        }catch (NumberFormatException e){
-            log.error("Planetary system could not be parsed: "+e);
+            log.error("Planetary system CSV on Path not Found: " + celestialBodyImportPath);
+        } catch (NumberFormatException e) {
+            log.error("Planetary system could not be parsed: " + e);
         }
     }
 
@@ -121,8 +121,8 @@ public class WarehouseService implements IWarehouseService {
      * @param initialList List to correct
      * @return corrected List
      */
-    public List<CelestialBody> adjustAmountWithCelestialBodyRepoEntries(List <CelestialBody> initialList){
-        for (CelestialBody celestialBody: initialList) {
+    public List<CelestialBody> adjustAmountWithCelestialBodyRepoEntries(List<CelestialBody> initialList) {
+        for (CelestialBody celestialBody : initialList) {
             Optional<CelestialBody> potentialEntry = celestialBodyRepository.findById(celestialBody.getId());
             potentialEntry.ifPresent(body -> celestialBody.addAmount(body.getAmount()));
         }

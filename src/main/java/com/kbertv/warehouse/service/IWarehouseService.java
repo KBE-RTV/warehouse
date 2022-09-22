@@ -17,14 +17,14 @@ public interface IWarehouseService {
     List<CelestialBody> getAllCelestialBodies();
 
     /**
-     * @return  Optional with celestial body if UUID could be found or empty if UUID could not be found.
+     * @return Optional with celestial body if UUID could be found or empty if UUID could not be found.
      */
     Optional<CelestialBody> getCelestialBody(UUID id);
 
     List<PlanetarySystem> getAllPlanetarySystems();
 
     /**
-     * @return  Optional with celestial body if UUID could be found or empty if UUID could not be found.
+     * @return Optional with celestial body if UUID could be found or empty if UUID could not be found.
      */
     Optional<PlanetarySystem> getPlanetarySystem(UUID id);
 
