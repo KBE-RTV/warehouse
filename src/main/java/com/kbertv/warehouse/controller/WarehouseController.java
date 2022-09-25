@@ -31,7 +31,7 @@ public class WarehouseController {
         this.warehouseService = warehouseService;
     }
 
-    @Operation(summary = "Get all celestial bodies", description = "Returns all celestial bodies to the warehouse", tags = {"celestial bodies"})
+    @Operation(summary = "Get all celestial bodies", description = "Returns all celestial bodies from the warehouse", tags = {"celestial bodies"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation",
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = CelestialBody.class))))})
